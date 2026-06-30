@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunTags FAQ — Made in Canada. Worn Forever.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --white: #f5f2ee;
+    --orange: #ff6b35;
+    --blue: #0099d8;
+    --yellow: #ffc900;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #2e2e2e;
+    --gray-light: #888;
+    --gray-xlight: #ccc;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: rgba(13,13,13,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,107,53,0.2);
+  }
+
+  .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .nav-logo span:first-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.5rem;
+    letter-spacing: 0.04em; color: var(--orange); text-transform: uppercase;
+  }
+  .nav-logo span:last-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--blue); text-transform: uppercase;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  nav ul a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-xlight); text-decoration: none; transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange) !important; color: var(--black) !important;
+    padding: 0.5rem 1.2rem; border-radius: 3px; transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: #ff8c5a !important; }
+
+  .lang-toggle {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: 2rem;
+    border-left: 1px solid rgba(255,107,53,0.2);
+    padding-left: 2rem;
+  }
+
+  .lang-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    color: var(--gray-light);
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    color: var(--orange);
+    border-bottom: 2px solid var(--orange);
+  }
+
+  .lang-btn:hover { color: var(--white); }
+
+  /* ── HEADER ── */
+  .faq-header {
+    padding: 8rem 5rem 4rem;
+    text-align: center;
+    margin-top: 80px;
+    position: relative;
+  }
+
+  .faq-header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .faq-header h1 span {
+    color: var(--orange);
+  }
+
+  .faq-header p {
+    font-size: 1.1rem;
+    color: var(--gray-xlight);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── TAB NAVIGATION ── */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,107,53,0.2);
+    padding: 0 5rem;
+    margin: 3rem 0 0 0;
+  }
+
+  .tab-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    color: var(--gray-light);
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    bottom: -1px;
+  }
+
+  .tab-btn:hover { color: var(--orange); }
+
+  .tab-btn.active {
+    color: var(--orange);
+    border-bottom-color: var(--orange);
+  }
+
+  /* ── FAQ CONTENT ── */
+  .faq-content {
+    padding: 4rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tab-pane {
+    display: none;
+  }
+
+  .tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-question {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 1.2rem;
+    background: rgba(255,107,53,0.1);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question:hover {
+    background: rgba(255,107,53,0.15);
+    border-color: var(--orange);
+  }
+
+  .faq-toggle {
+    font-size: 1.2rem;
+    color: var(--orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item.open .faq-toggle {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: rgba(255,107,53,0.05);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 1000px;
+  }
+
+  .faq-answer p {
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--gray-xlight);
+    line-height: 1.8;
+  }
+
+  .faq-answer p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .faq-answer ul {
+    padding: 1.5rem 1.5rem 1.5rem 3rem;
+    list-style: disc;
+  }
+
+  .faq-answer li {
+    color: var(--gray-xlight);
+    line-height: 1.8;
+    margin-bottom: 0.6rem;
+  }
+
+  .faq-answer a {
+    color: var(--orange);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .faq-answer a:hover {
+    color: #ff8c5a;
+  }
+
+  /* ── FOOTER ── */
+  .faq-cta {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .faq-cta h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .faq-cta p {
+    font-size: 0.95rem;
+    color: var(--gray-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--orange), #ff8c5a);
+    color: var(--black);
+    padding: 0.8rem 2.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+  }
+
+  footer {
+    background: #080808;
+    padding: 3rem 5rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,107,53,0.2);
+    font-size: 0.8rem;
+    color: var(--gray-light);
+  }
+
+  @media (max-width: 960px) {
+    nav ul { display: none; }
+    .lang-toggle { margin-left: 1rem; padding-left: 1rem; }
+    .faq-header, .faq-content, .tab-nav, footer { padding-left: 2rem; padding-right: 2rem; }
+    .tab-nav { padding: 0 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo" style="text-decoration:none;">
+    <span>RunTags</span>
+    <span lang-en="by RunMaps" lang-fr="par RunMaps"></span>
+  </a>
+  <ul>
+    <li><a href="/" lang-en="Home" lang-fr="Accueil"></a></li>
+    <li><a href="/" lang-en="Order" lang-fr="Commander"></a></li>
+    <li><a href="#" lang-en="FAQ" lang-fr="FAQ"></a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+    <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="faq-header">
+  <h1><span lang-en="Frequently" lang-fr="Questions"></span> <span lang-en="Asked" lang-fr="Fréquemment"></span> <span lang-en="Questions" lang-fr="Posées"></span></h1>
+  <p lang-en="Everything you need to know about ordering, shipping, and attaching your RunTag to your medal." lang-fr="Tout ce que vous devez savoir sur la commande, l'expédition et l'attache de votre RunTag à votre médaille."></p>
+</div>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('customer')" lang-en="Customers" lang-fr="Coureurs"></button>
+  <button class="tab-btn" onclick="switchTab('partners')" lang-en="Race Directors" lang-fr="Organisateurs"></button>
+</div>
+
+<!-- CONTENT -->
+<div class="faq-content">
+
+  <!-- CUSTOMER TAB -->
+  <div class="tab-pane active" id="customer">
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="What is a RunTag?" lang-fr="Qu'est-ce qu'un RunTag?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="A RunTag is a precision laser-engraved wood tag personalized with your name, race distance, and finish time. It threads through any medal ribbon to create a permanent keepsake of your achievement." lang-fr="Un RunTag est un tag en bois gravé au laser de précision personnalisé avec votre nom, distance de course et temps d'arrivée. Il s'enfile dans le ruban de n'importe quelle médaille pour créer un souvenir permanent de votre réussite."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How do I order a RunTag?" lang-fr="Comment commander un RunTag?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Ordering is simple: fill in your details (name, race, distance, finish time) on our website, complete checkout, and we'll engrave and ship your RunTag within 5-7 business days. No registration code needed." lang-fr="La commande est simple : remplissez vos détails (nom, course, distance, temps d'arrivée) sur notre site, complétez le paiement, et nous graverons et expédierons votre RunTag dans les 5-7 jours ouvrables. Aucun code d'inscription requis."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Can I order a RunTag for a past race?" lang-fr="Puis-je commander un RunTag pour une course passée?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Absolutely! You can order a RunTag for any race — past, present, or upcoming. As long as you have your official finish time, you can get it engraved." lang-fr="Absolument! Vous pouvez commander un RunTag pour n'importe quelle course — passée, présente ou future. Tant que vous avez votre temps d'arrivée officiel, vous pouvez le faire graver."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="What information do I need to provide?" lang-fr="Quelles informations dois-je fournir?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <ul>
+          <li lang-en="Your full name" lang-fr="Votre nom complet"></li>
+          <li lang-en="Race name or distance (e.g., 'Marathon', 'Half 21.1K', 'Toronto 10K')" lang-fr="Nom de la course ou distance (ex. 'Marathon', 'Semi 21.1K', 'Toronto 10K')"></li>
+          <li lang-en="Your official finish time (HH:MM:SS format)" lang-fr="Votre temps d'arrivée officiel (format HH:MM:SS)"></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How does the RunTag attach to my medal?" lang-fr="Comment le RunTag s'attache-t-il à ma médaille?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="The RunTag has slots on the top and bottom that allow it to thread through any medal ribbon. It's a universal fit — no adhesive, no tools needed. Simply slide it onto the ribbon and you're done." lang-fr="Le RunTag a des fentes en haut et en bas qui lui permettent de s'enfiler dans le ruban de la médaille. C'est un ajustement universel — pas d'adhésif, pas d'outils requis. Il suffit de le glisser sur le ruban et c'est terminé."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How long does shipping take?" lang-fr="Combien de temps prend la livraison?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Orders are engraved within 1-2 business days, then shipped. Worldwide shipping typically takes 5-7 business days. You'll receive a tracking number via email." lang-fr="Les commandes sont gravées dans les 1-2 jours ouvrables, puis expédiées. La livraison mondiale prend généralement 5-7 jours ouvrables. Vous recevrez un numéro de suivi par e-mail."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Is shipping really free?" lang-fr="La livraison est-elle vraiment gratuite?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Yes! Worldwide shipping is included in the $14.99 CAD price. No hidden fees, no surprises." lang-fr="Oui! La livraison mondiale est incluse dans le prix de 14,99 $ CAD. Pas de frais cachés, pas de surprises."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="What if I have multiple race medals?" lang-fr="Et si j'ai plusieurs médailles de course?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="You can order a RunTag for each race! Simply place an order for each one. Each tag is custom engraved with that race's specific details." lang-fr="Vous pouvez commander un RunTag pour chaque course! Il suffit de faire une commande pour chacun. Chaque tag est gravé sur mesure avec les détails spécifiques de cette course."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Will my RunTag work with any medal?" lang-fr="Mon RunTag fonctionnera-t-il avec n'importe quelle médaille?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Yes! The RunTag is designed to fit any medal ribbon — from marathon medals to 5K races to trail runs. The threading slots work universally." lang-fr="Oui! Le RunTag est conçu pour s'adapter à n'importe quel ruban de médaille — des médailles de marathon aux courses de 5K en passant par les courses de trail. Les fentes de filetage fonctionnent universellement."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="What if I made a spelling mistake in my order?" lang-fr="Et si je me suis trompé dans l'orthographe de ma commande?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Contact us immediately at <strong>hello@runtags.ca</strong> with your order number. If we haven't started engraving yet, we can correct it. If engraving has begun, we'll work with you on a solution." lang-fr="Contactez-nous immédiatement à <strong>hello@runtags.ca</strong> avec votre numéro de commande. Si nous n'avons pas encore commencé la gravure, nous pouvons la corriger. Si la gravure a commencé, nous trouverons une solution avec vous."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How durable is a RunTag?" lang-fr="Quelle est la durabilité d'un RunTag?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Very durable! Made from natural wood and laser-engraved, your RunTag will last for years as a keepsake. The engraving is permanent and won't fade. It's designed to be a lifetime memento of your achievement." lang-fr="Très durable! Fait en bois naturel et gravé au laser, votre RunTag durera des années comme souvenir. La gravure est permanente et ne s'effacera pas. Il est conçu pour être un mémento à vie de votre réussite."></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PARTNERS TAB -->
+  <div class="tab-pane" id="partners">
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How can my race partner with RunTags?" lang-fr="Comment ma course peut-elle s'associer à RunTags?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="We're actively partnering with Canadian race organizers! Email <strong>partners@runtags.ca</strong> with basic info about your event (name, size, location) and we'll discuss how to integrate RunTags into your finisher experience." lang-fr="Nous nous associons activement aux organisateurs de courses canadiennes! Envoyez un e-mail à <strong>partners@runtags.ca</strong> avec les informations de base sur votre événement (nom, taille, lieu) et nous discuterons de la façon d'intégrer RunTags dans votre expérience d'arrivée."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Can you promote RunTags at registration?" lang-fr="Pouvez-vous promouvoir RunTags à l'inscription?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Yes! We can provide promotional materials for pre-race and post-race marketing. Runners can order before or after the race through our platform. We also work with Race Roster and other registration systems." lang-fr="Oui! Nous pouvons fournir des matériels promotionnels pour le marketing avant et après la course. Les coureurs peuvent commander avant ou après la course via notre plateforme. Nous travaillons également avec Race Roster et d'autres systèmes d'inscription."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="What's the partner commission structure?" lang-fr="Quelle est la structure de commission partenaire?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="We have competitive partnerships tailored to your race size and scope. Let's talk! Email <strong>partners@runtags.ca</strong> to discuss pricing and terms." lang-fr="Nous avons des partenariats compétitifs adaptés à la taille et à l'envergure de votre course. Parlons-en! Envoyez un e-mail à <strong>partners@runtags.ca</strong> pour discuter des prix et des conditions."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How do runners order through a partnership?" lang-fr="Comment les coureurs commandent-ils via un partenariat?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Runners order directly from our website using their name and race details. We automate the process to pull finish times from your event data, making ordering seamless for your participants." lang-fr="Les coureurs commandent directement sur notre site Web en utilisant leur nom et les détails de la course. Nous automatisons le processus pour extraire les temps d'arrivée de vos données d'événement, ce qui rend la commande transparente pour vos participants."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Can we offer RunTags as an add-on at checkout?" lang-fr="Pouvons-nous offrir RunTags comme module complémentaire à la caisse?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Yes! If you use Race Roster or similar platforms, we can integrate RunTags as a post-race add-on. Runners can purchase during registration or after results are posted." lang-fr="Oui! Si vous utilisez Race Roster ou des plateformes similaires, nous pouvons intégrer RunTags comme module complémentaire post-course. Les coureurs peuvent acheter pendant l'inscription ou après la publication des résultats."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="How quickly can we launch a partnership?" lang-fr="Quelle est la rapidité de lancement d'un partenariat?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Fast! Once we're in contact and agree on terms, we can be ready to launch within 2-3 weeks. The more lead time before your race, the better for promotion." lang-fr="Rapidement! Une fois que nous sommes en contact et que nous nous mettons d'accord sur les conditions, nous pouvons être prêts à lancer dans les 2-3 semaines. Plus vous avez de temps avant votre course, mieux c'est pour la promotion."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Do you handle customer support?" lang-fr="Assurez-vous le support client?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Absolutely. We handle all order fulfillment, shipping, and customer service. Your job is simple: promote RunTags to your runners and provide their finish times. We handle the rest." lang-fr="Absolument. Nous gérons tout l'exécution des commandes, l'expédition et le service client. Votre travail est simple : promouvoir RunTags auprès de vos coureurs et fournir leurs temps d'arrivée. Nous gérons le reste."></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        <span lang-en="Is RunTags available in French?" lang-fr="RunTags est-il disponible en français?"></span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-answer">
+        <p lang-en="Yes! Our entire platform is bilingual — website, ordering, support. Perfect for Canadian races." lang-fr="Oui! Notre plateforme entière est bilingue — site Web, commande, support. Parfait pour les courses canadiennes."></p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="faq-content" style="max-width: 900px; margin: 0 auto;">
+  <div class="faq-cta">
+    <h3 lang-en="Still have questions?" lang-fr="Vous avez toujours des questions?"></h3>
+    <p lang-en="Get in touch with our team." lang-fr="Veuillez nous contacter."></p>
+    <a href="mailto:hello@runtags.ca" class="btn-primary" lang-en="Email Us" lang-fr="Nous écrire"></a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p lang-en="© 2026 RunTags. All rights reserved." lang-fr="© 2026 RunTags. Tous droits réservés."></p>
+  <p lang-en="Made in Canada 🍁" lang-fr="Fait au Canada 🍁"></p>
+</footer>
+
+<script>
+  let currentLang = 'en';
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[lang-en]').forEach(el => {
+      const text = lang === 'en' ? el.getAttribute('lang-en') : el.getAttribute('lang-fr');
+      if (el.getAttribute('data-html') === 'true') {
+        el.innerHTML = text;
+      } else if (el.children.length === 0) {
+        el.textContent = text;
+      }
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    localStorage.setItem('selectedLang', lang);
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleFAQ(element) {
+    const item = element.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  if (localStorage.getItem('selectedLang')) {
+    setLanguage(localStorage.getItem('selectedLang'));
+  } else {
+    setLanguage('en');
+  }
+</script>
+</body>
+</html>

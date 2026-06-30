@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunTags — Made in Canada. Worn Forever.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --white: #f5f2ee;
+    --orange: #ff6b35;
+    --orange-light: #ff8c5a;
+    --blue: #0099d8;
+    --blue-light: #40c4ff;
+    --yellow: #ffc900;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #2e2e2e;
+    --gray-light: #888;
+    --gray-xlight: #ccc;
+    --text-muted: #999;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,107,53,0.2);
+  }
+
+  .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .nav-logo span:first-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.5rem;
+    letter-spacing: 0.04em; color: var(--orange); text-transform: uppercase;
+  }
+  .nav-logo span:last-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--blue); text-transform: uppercase;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  nav ul a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-xlight); text-decoration: none; transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange) !important; color: var(--black) !important;
+    padding: 0.5rem 1.2rem; border-radius: 3px; transition: all 0.2s !important;
+    font-weight: 700 !important;
+  }
+  .nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-2px); }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: 2rem;
+    border-left: 1px solid rgba(255,107,53,0.2);
+    padding-left: 2rem;
+  }
+
+  .lang-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    color: var(--gray-light);
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    color: var(--orange);
+    border-bottom: 2px solid var(--orange);
+  }
+
+  .lang-btn:hover {
+    color: var(--white);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+    background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1400&h=900&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(13,13,13,0.75) 0%, rgba(26,26,26,0.85) 100%);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--orange), var(--blue), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gray-xlight);
+    max-width: 550px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    background: linear-gradient(90deg, var(--orange), var(--orange-light));
+    color: var(--black);
+    padding: 1rem 2.8rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.25s;
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(255,107,53,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255,107,53,0.45);
+  }
+
+  .btn-secondary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    background: linear-gradient(90deg, var(--blue), var(--blue-light));
+    color: var(--black);
+    padding: 1rem 2.8rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.25s;
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(0,153,216,0.3);
+  }
+  .btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0,153,216,0.45);
+  }
+
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 2px solid rgba(255,107,53,0.4);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover {
+    color: var(--orange);
+    border-color: var(--orange);
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    padding: 0.8rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 30s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    padding: 0 2.5rem;
+  }
+  .ticker-item::before {
+    content: '● ';
+    margin-right: 0.3rem;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── PRODUCT SHOWCASE ── */
+  .product-showcase {
+    padding: 6rem 5rem;
+    background: var(--gray-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .showcase-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .showcase-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.8rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 0.8rem;
+  }
+
+  .showcase-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .showcase-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .showcase-image {
+    background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,153,216,0.1));
+    border: 2px solid rgba(255,107,53,0.3);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    font-size: 4rem;
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .showcase-details {
+    grid-column: 2 / 4;
+    background: rgba(0,153,216,0.08);
+    border: 1px solid rgba(0,153,216,0.2);
+    border-radius: 8px;
+    padding: 3rem;
+  }
+
+  .showcase-details h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .showcase-details h3 span {
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .feature-list li {
+    font-size: 0.95rem;
+    color: var(--gray-xlight);
+    padding: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+
+  .price-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 2rem;
+  }
+
+  .price-tag span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gray-light);
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    padding: 6rem 5rem;
+    background: var(--black);
+  }
+
+  .how-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .how-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .how-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .step-card {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .step-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255,107,53,0.2);
+  }
+
+  .step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--black);
+    margin: 0 auto 1.5rem;
+  }
+
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .step-desc {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--gray-xlight);
+    line-height: 1.7;
+  }
+
+  /* ── CALL TO ACTION ── */
+  .final-cta {
+    padding: 6rem 5rem;
+    background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,153,216,0.1));
+    border-top: 2px solid rgba(255,107,53,0.3);
+    text-align: center;
+    position: relative;
+  }
+
+  .final-cta h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .final-cta h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--orange), var(--yellow), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .final-cta p {
+    font-size: 1.1rem;
+    color: var(--gray-xlight);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080808;
+    padding: 4rem 5rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    border-top: 1px solid rgba(255,107,53,0.2);
+  }
+
+  .footer-brand .fn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .footer-brand .fn span { color: var(--orange); }
+  .footer-brand p {
+    font-size: 0.9rem; color: var(--gray-light);
+    line-height: 1.7; margin-top: 1rem; max-width: 300px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.8rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul a {
+    font-size: 0.9rem; color: var(--gray-xlight);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--orange); }
+
+  .footer-bottom {
+    background: #080808;
+    padding: 1.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,107,53,0.1);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 960px) {
+    nav ul { display: none; }
+    .lang-toggle { margin-left: 1rem; padding-left: 1rem; }
+    .hero-content { padding: 2rem; }
+    .showcase-grid { grid-template-columns: 1fr; }
+    .showcase-image { grid-column: auto !important; }
+    .showcase-details { grid-column: auto !important; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .product-showcase, .how-section, .final-cta { padding: 4rem 2rem; }
+    footer { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 2rem; }
+    .footer-bottom { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" style="text-decoration:none;">
+    <span>RunTags</span>
+    <span lang-en="by RunMaps" lang-fr="par RunMaps"></span>
+  </a>
+  <ul>
+    <li><a href="#showcase" lang-en="Product" lang-fr="Produit"></a></li>
+    <li><a href="#how" lang-en="How It Works" lang-fr="Comment ça marche"></a></li>
+    <li><a href="#order" class="nav-cta" lang-en="Order Now" lang-fr="Commander"></a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+    <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow" lang-en="Made in Canada. Worn Forever." lang-fr="Fait au Canada. Porté à jamais."></p>
+    <h1 data-html="true" lang-en="Run it.<br>Tag it.<br><span style='color: var(--orange);'>Own it.</span>" lang-fr="Courez-le.<br>Taguez-le.<br><span style='color: var(--orange);'>Possédez-le.</span>"></h1>
+    <p class="hero-sub" lang-en="Precision laser-engraved wood tags with your name and finish time. Threads through any medal ribbon. Shipped worldwide free." lang-fr="Tags en bois gravés au laser de précision avec votre nom et temps d'arrivée. S'enfile dans le ruban de n'importe quelle médaille. Livraison gratuite mondiale."></p>
+    <div class="hero-actions">
+      <a href="#order" class="btn-primary" lang-en="Order Your RunTag" lang-fr="Commander votre RunTag"></a>
+      <a href="#showcase" class="btn-secondary" lang-en="See the Product" lang-fr="Voir le produit"></a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item" lang-en="Precision Laser Engraved" lang-fr="Gravé au laser de précision"></span>
+    <span class="ticker-item" lang-en="Universal Medal Fit" lang-fr="Convient à toutes les médailles"></span>
+    <span class="ticker-item" lang-en="Free Shipping Worldwide" lang-fr="Livraison gratuite mondiale"></span>
+    <span class="ticker-item" lang-en="Any Race · Any Distance · Any Year" lang-fr="Toute course · Toute distance · Toute année"></span>
+    <span class="ticker-item" lang-en="Made in Canada" lang-fr="Fait au Canada"></span>
+    <span class="ticker-item" lang-en="Precision Laser Engraved" lang-fr="Gravé au laser de précision"></span>
+    <span class="ticker-item" lang-en="Universal Medal Fit" lang-fr="Convient à toutes les médailles"></span>
+    <span class="ticker-item" lang-en="Free Shipping Worldwide" lang-fr="Livraison gratuite mondiale"></span>
+  </div>
+</div>
+
+<!-- PRODUCT SHOWCASE -->
+<section class="product-showcase" id="showcase">
+  <div class="showcase-header">
+    <p class="showcase-eyebrow" lang-en="The Actual Product" lang-fr="Le vrai produit"></p>
+    <h2 class="showcase-title" data-html="true" lang-en="Your Achievement<br><em>In Wood</em>" lang-fr="Votre réussite<br><em>En bois</em>"></h2>
+  </div>
+
+  <div class="showcase-grid">
+    <div class="showcase-image">
+      🏅
+    </div>
+    <div class="showcase-details">
+      <h3 data-html="true"><span lang-en="RunTag" lang-fr="RunTag"></span></h3>
+      <ul class="feature-list">
+        <li lang-en="Natural wood construction — warm, durable, beautiful" lang-fr="Construction en bois naturel — chaud, durable, beau"></li>
+        <li lang-en="Precision laser engraving with your name, distance, and finish time" lang-fr="Gravure au laser de précision avec votre nom, distance et temps d'arrivée"></li>
+        <li lang-en="Threads through any medal ribbon — universal fit" lang-fr="S'enfile dans le ruban de n'importe quelle médaille — convient à tous"></li>
+        <li lang-en="Becomes a permanent keepsake — a story you wear" lang-fr="Devient un souvenir permanent — une histoire que vous portez"></li>
+        <li lang-en="Shipped worldwide free — arrives in 5-7 business days" lang-fr="Livré gratuitement dans le monde entier — arrive en 5-7 jours ouvrables"></li>
+      </ul>
+      <div class="price-tag">$14.99 <span lang-en="CAD · Free Shipping" lang-fr="CAD · Livraison gratuite"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="how-header">
+    <h2 class="how-title" data-html="true" lang-en="Four Steps to<br><span style='color: var(--orange);'>Own It</span>" lang-fr="Quatre étapes pour<br><span style='color: var(--orange);'>Posséder</span>"></h2>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">01</div>
+      <h3 class="step-title" lang-en="Order" lang-fr="Commandez"></h3>
+      <p class="step-desc" lang-en="Fill in your details — name, distance, finish time. Works for past races or upcoming ones." lang-fr="Remplissez vos détails — nom, distance, temps d'arrivée. Fonctionne pour les courses passées ou à venir."></p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">02</div>
+      <h3 class="step-title" lang-en="We Engrave" lang-fr="Nous gravons"></h3>
+      <p class="step-desc" lang-en="Laser precision cuts your details into the wood. Clean, crisp, permanent." lang-fr="La précision laser grave vos détails dans le bois. Propre, net, permanent."></p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">03</div>
+      <h3 class="step-title" lang-en="Ship Free" lang-fr="Livraison gratuite"></h3>
+      <p class="step-desc" lang-en="Worldwide shipping included. No hidden fees. Arrives in 5-7 business days." lang-fr="Livraison mondiale incluse. Pas de frais cachés. Arrive en 5-7 jours ouvrables."></p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">04</div>
+      <h3 class="step-title" lang-en="Thread & Own" lang-fr="Enfilez et possédez"></h3>
+      <p class="step-desc" lang-en="Thread through your medal ribbon. It's permanently yours. A story you wear." lang-fr="Enfilez dans le ruban de votre médaille. C'est définitivement vôtre. Une histoire que vous portez."></p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="order">
+  <h2 data-html="true" lang-en="Made in Canada.<br><span style='color: var(--orange);'>Worn Forever.</span>" lang-fr="Fait au Canada.<br><span style='color: var(--orange);'>Porté à jamais.</span>"></h2>
+  <p lang-en="Every finish deserves to be celebrated. Every time deserves to be remembered. Order your RunTag today." lang-fr="Chaque arrivée mérite d'être célébrée. Chaque temps mérite d'être mémorisé. Commandez votre RunTag aujourd'hui."></p>
+  <a href="#" class="btn-primary" lang-en="Order Your RunTag — $14.99" lang-fr="Commander votre RunTag — 14,99 $"></a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="fn">Run<span>Tags</span></div>
+    <p lang-en="Precision laser-engraved wood tags for every runner. Made in Canada. Shipped worldwide. Your time, your name — forever on your medal." lang-fr="Tags en bois gravés au laser de précision pour chaque coureur. Fait au Canada. Expédié dans le monde. Votre temps, votre nom — à jamais sur votre médaille."></p>
+    <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);" lang-en="Made in Canada 🍁 · Sister brand: RunMaps" lang-fr="Fait au Canada 🍁 · Marque sœur : RunMaps"></p>
+  </div>
+  <div class="footer-col">
+    <h4 lang-en="Company" lang-fr="Entreprise"></h4>
+    <ul>
+      <li><a href="#" lang-en="About" lang-fr="À propos"></a></li>
+      <li><a href="#" lang-en="Contact" lang-fr="Contact"></a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4 lang-en="Links" lang-fr="Liens"></h4>
+    <ul>
+      <li><a href="#showcase" lang-en="Product" lang-fr="Produit"></a></li>
+      <li><a href="#how" lang-en="How It Works" lang-fr="Comment ça marche"></a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span lang-en="© 2026 RunTags. All rights reserved." lang-fr="© 2026 RunTags. Tous droits réservés."></span>
+  <span lang-en="Made with 🍁 in Gatineau-Ottawa" lang-fr="Fait avec 🍁 à Gatineau-Ottawa"></span>
+</div>
+
+<script>
+  let currentLang = 'en';
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[lang-en]').forEach(el => {
+      const text = lang === 'en' ? el.getAttribute('lang-en') : el.getAttribute('lang-fr');
+      if (el.getAttribute('data-html') === 'true') {
+        el.innerHTML = text;
+      } else if (el.children.length === 0) {
+        el.textContent = text;
+      }
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    localStorage.setItem('selectedLang', lang);
+  }
+
+  // Set default language
+  if (localStorage.getItem('selectedLang')) {
+    setLanguage(localStorage.getItem('selectedLang'));
+  } else {
+    setLanguage('en');
+  }
+</script>
+</body>
+</html>
